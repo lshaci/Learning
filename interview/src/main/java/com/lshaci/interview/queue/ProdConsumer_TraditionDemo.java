@@ -60,7 +60,7 @@ class ShareData {
             // 1.判断(多线程判断需要使用while)
             while (number != 0) {
                 // 等待, 不生产数据
-                condition.await();
+                condition.await(); // 临时释放锁，被唤醒后重新获得锁
             }
             // 2.工作(生产数据)
             number++;
