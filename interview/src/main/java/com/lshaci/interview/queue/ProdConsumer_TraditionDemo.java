@@ -52,7 +52,7 @@ class ShareData {
     private Condition condition = lock.newCondition();
 
     /**
-     * 加一
+     * 加一(生产)
      */
     public void increment() {
         lock.lock();
@@ -75,7 +75,7 @@ class ShareData {
     }
 
     /**
-     * 减一
+     * 减一(消费)
      */
     public void decrement() {
         lock.lock();
