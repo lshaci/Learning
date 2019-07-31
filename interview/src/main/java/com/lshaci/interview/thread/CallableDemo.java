@@ -1,4 +1,4 @@
-package com.lshaci.interview.thread.pool;
+package com.lshaci.interview.thread;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
