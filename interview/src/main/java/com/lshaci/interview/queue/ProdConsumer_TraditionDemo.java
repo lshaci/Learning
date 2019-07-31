@@ -38,62 +38,63 @@ public class ProdConsumer_TraditionDemo {
             }
         }, "B").start();
     }
-}
-
-/**
- * 资源类
- */
-class ShareData {
-
-    private int number = 0; // 初始值
-
-    private Lock lock = new ReentrantLock();
-
-    private Condition condition = lock.newCondition();
 
     /**
-     * 加一(生产)
+     * 资源类
      */
-    public void increment() {
-        lock.lock();
-        try {
-            // 1.判断(多线程判断需要使用while)
-            while (number != 0) {
-                // 等待, 不生产数据
-                condition.await(); // 临时释放锁，被唤醒后重新获得锁
+    static class ShareData {
+
+        private int number = 0; // 初始值
+
+        private Lock lock = new ReentrantLock();
+
+        private Condition condition = lock.newCondition();
+
+        /**
+         * 加一(生产)
+         */
+        public void increment() {
+            lock.lock();
+            try {
+                // 1.判断(多线程判断需要使用while)
+                while (number != 0) {
+                    // 等待, 不生产数据
+                    condition.await(); // 临时释放锁，被唤醒后重新获得锁
+                }
+                // 2.工作(生产数据)
+                number++;
+                System.err.println(Thread.currentThread().getName() + "==>生产数据已完成 \t number = " + number);
+                // 3.通知唤醒
+                condition.signalAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
             }
-            // 2.工作(生产数据)
-            number++;
-            System.err.println(Thread.currentThread().getName() + "==>生产数据已完成 \t number = " + number);
-            // 3.通知唤醒
-            condition.signalAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
+        }
+
+        /**
+         * 减一(消费)
+         */
+        public void decrement() {
+            lock.lock();
+            try {
+                // 1.判断
+                while (number == 0) {
+                    // 等待, 不消费数据
+                    condition.await();
+                }
+                // 2.工作(消费数据)
+                number--;
+                System.err.println(Thread.currentThread().getName() + "==>消费数据已完成 \t number = " + number);
+                // 3.通知唤醒
+                condition.signalAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
         }
     }
 
-    /**
-     * 减一(消费)
-     */
-    public void decrement() {
-        lock.lock();
-        try {
-            // 1.判断
-            while (number == 0) {
-                // 等待, 不消费数据
-                condition.await();
-            }
-            // 2.工作(消费数据)
-            number--;
-            System.err.println(Thread.currentThread().getName() + "==>消费数据已完成 \t number = " + number);
-            // 3.通知唤醒
-            condition.signalAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
-        }
-    }
 }

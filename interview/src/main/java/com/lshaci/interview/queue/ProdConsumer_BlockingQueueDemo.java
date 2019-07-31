@@ -42,64 +42,66 @@ public class ProdConsumer_BlockingQueueDemo {
         System.err.println();
         shareResource.stop();
     }
+
+    /**
+     * 资源类
+     */
+    static class ShareResource {
+
+        private volatile boolean enable = true; // 默认开启，进行生产和消费
+
+        private AtomicInteger atomicInteger = new AtomicInteger();
+
+        private BlockingQueue<Integer> blockingQueue = null;
+
+        public ShareResource(BlockingQueue<Integer> blockingQueue) {
+            this.blockingQueue = blockingQueue;
+        }
+
+        /**
+         * 生产
+         */
+        public void producer() throws InterruptedException {
+            int i;
+            boolean offer;
+            while (enable) {
+                i = atomicInteger.incrementAndGet();
+                offer = blockingQueue.offer(i, 2, TimeUnit.SECONDS);
+                if (offer) {
+                    System.err.println(Thread.currentThread().getName() + "==>生产数据到队列成功, data = " + i);
+                } else {
+                    System.err.println(Thread.currentThread().getName() + "==>生产数据到队列失败, data = " + i);
+                }
+
+                TimeUnit.SECONDS.sleep(1); // 1s生产一条数据
+            }
+            System.err.println(Thread.currentThread().getName() + "==>结束生产数据");
+        }
+
+        /**
+         * 消费
+         */
+        public void consumer() throws InterruptedException {
+            Integer data;
+            while (enable) {
+                data = blockingQueue.poll(2, TimeUnit.SECONDS);
+                if (Objects.isNull(data)) {
+                    // 如果2s没有取到数据则停止
+                    System.err.println(Thread.currentThread().getName() + "==>2s未消费到数据");
+                    continue;
+                }
+                System.err.println(Thread.currentThread().getName() + "==>从队列中消费到数据, data = " + data);
+            }
+            System.err.println(Thread.currentThread().getName() + "==>结束消费数据");
+        }
+
+        /**
+         * 停止
+         */
+        public void stop() {
+            this.enable = false;
+        }
+    }
+
 }
 
-/**
- * 资源类
- */
-class ShareResource {
-
-    private volatile boolean enable = true; // 默认开启，进行生产和消费
-
-    private AtomicInteger atomicInteger = new AtomicInteger();
-
-    private BlockingQueue<Integer> blockingQueue = null;
-
-    public ShareResource(BlockingQueue<Integer> blockingQueue) {
-        this.blockingQueue = blockingQueue;
-    }
-
-    /**
-     * 生产
-     */
-    public void producer() throws InterruptedException {
-        int i;
-        boolean offer;
-        while (enable) {
-            i = atomicInteger.incrementAndGet();
-            offer = blockingQueue.offer(i, 2, TimeUnit.SECONDS);
-            if (offer) {
-                System.err.println(Thread.currentThread().getName() + "==>生产数据到队列成功, data = " + i);
-            } else {
-                System.err.println(Thread.currentThread().getName() + "==>生产数据到队列失败, data = " + i);
-            }
-
-            TimeUnit.SECONDS.sleep(1); // 1s生产一条数据
-        }
-        System.err.println(Thread.currentThread().getName() + "==>结束生产数据");
-    }
-
-    /**
-     * 消费
-     */
-    public void consumer() throws InterruptedException {
-        Integer data;
-        while (enable) {
-            data = blockingQueue.poll(2, TimeUnit.SECONDS);
-            if (Objects.isNull(data)) {
-                // 如果2s没有取到数据则停止
-                System.err.println(Thread.currentThread().getName() + "==>2s未消费到数据");
-                continue;
-            }
-            System.err.println(Thread.currentThread().getName() + "==>从队列中消费到数据, data = " + data);
-        }
-        System.err.println(Thread.currentThread().getName() + "==>结束消费数据");
-    }
-
-    /**
-     * 停止
-     */
-    public void stop() {
-        this.enable = false;
-    }
-}

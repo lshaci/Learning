@@ -16,13 +16,15 @@ public class CallableDemo {
 
         System.err.println("=========>结果：" + r);
     }
-}
 
-class MyCallable implements Callable<Integer> {
+    static class MyCallable implements Callable<Integer> {
 
-    @Override
-    public Integer call() throws Exception {
-        System.err.println("***************call();");
-        return 1024;
+        @Override
+        public Integer call() throws Exception {
+            System.err.println("***************call();");
+            return 1024;
+        }
     }
 }
+
+
