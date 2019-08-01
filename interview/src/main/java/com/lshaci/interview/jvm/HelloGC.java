@@ -8,6 +8,9 @@ import java.util.concurrent.TimeUnit;
  * jinfo -flag MetaspaceSize [进程号]
  * jinfo -flags [进程号]
  * jstat -gcutil [进程号]
+ *
+ * java -XX:+PrintFlagsInitial 查看jvm初始参数
+ * java -XX:+PrintFlagsFinal 查看jvm修改后的参数
  */
 public class HelloGC {
 
@@ -18,9 +21,11 @@ public class HelloGC {
     public static void main(String[] args) throws InterruptedException {
         System.err.println("**************hello gc");
 
-        TimeUnit.DAYS.sleep(1);
+//        byte[] arr = new byte[20 * 1024 * 1024];
 
-        int res = oneAddone(1, 1);
-        System.out.println(res);
+        TimeUnit.DAYS.sleep(1);
+//
+//        int res = oneAddone(1, 1);
+//        System.out.println(res);
     }
 }
