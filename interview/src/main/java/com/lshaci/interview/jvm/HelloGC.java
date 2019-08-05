@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
  *
  * java -XX:+PrintFlagsInitial 查看jvm初始参数
  * java -XX:+PrintFlagsFinal 查看jvm修改后的参数
+ * java -XX:+PrintCommandLineFlags -version
  */
 public class HelloGC {
 
