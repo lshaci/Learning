@@ -28,7 +28,6 @@ public class ReferenceCacheDemo {
 
         }
         System.err.println(get(key));
-
     }
 
     /**
