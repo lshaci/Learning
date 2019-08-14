@@ -1,0 +1,13 @@
+spring:
+#  jms:
+#    pub-sub-domain: true # \u7528\u4E8E\u5F00\u542Fmq\u53D1\u5E03/\u8BA2\u9605\u6A21\u5F0F
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+# log
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    root: warn
+    com.lshaci: info

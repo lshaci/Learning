@@ -1,7 +1,6 @@
 package com.lshaci.activemq.hello;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.command.ActiveMQTextMessage;
 
 import javax.jms.*;
 
