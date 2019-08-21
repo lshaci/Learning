@@ -23,16 +23,15 @@ spring:
 # eureka
 eureka:
   instance:
-    # 表示eureka client间隔多久去拉取服务注册信息，默认为30秒，如果要迅速获取服务注册状态，可以缩小该值
+    # eureka客户端需要多长时间发送心跳给eureka服务器，表明他仍然活着，默认30秒
     lease-renewal-interval-in-seconds: 5
-    # 表示eureka server至上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance。
-    # 默认为90秒
-    # 如果该值太大，则很可能将流量转发过去的时候，该instance已经不存活了。
-    # 如果该值设置太小了，则instance则很可能因为临时的网络抖动而被摘除掉。
+    # eureka服务器在接受到实例的最后一次发出的心跳后，需要等待多久才可以将此实例删除
     # 该值至少应该大于 leaseRenewalIntervalInSeconds
     lease-expiration-duration-in-seconds: 10
   # eureka client
   client:
+    # 表示eureka client间隔多久去拉取服务器注册信息,默认为30秒
+    registry-fetch-interval-seconds: 30
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 # zuul
