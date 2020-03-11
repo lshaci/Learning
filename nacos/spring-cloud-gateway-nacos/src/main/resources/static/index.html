@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gateway</title>
+</head>
+<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<body>
+123456
+<button id="b">点我</button>
+</body>
+<script>
+    $('#b').on('click', function() {
+       $.get("/consumer/movie/list", function(r) {
+           console.log(r)
+       })
+    });
+</script>
+</html>

@@ -8,7 +8,7 @@ public class Consumer2 {
 
     public static void main(String[] args) throws MQClientException {
 
-        // Instantiate with specified consumer group name.
+        // Instantiate with specified provider group name.
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("HELLO_CONSUMER");
 
         // Specify name server addresses.
@@ -18,7 +18,7 @@ public class Consumer2 {
         // Register callback to execute on arrival of messages fetched from brokers.
         consumer.registerMessageListener(new MessageListenerImpl());
 
-        //Launch the consumer instance.
+        //Launch the provider instance.
         consumer.start();
 
         System.out.printf("Consumer2 Started.%n");

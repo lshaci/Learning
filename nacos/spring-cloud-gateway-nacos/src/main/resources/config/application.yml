@@ -1,0 +1,30 @@
+# server
+server:
+  port: 9000
+# spring
+spring:
+  # application
+  application:
+    name: gateway
+  webflux:
+    static-path-pattern: classpath:/static/**
+  # cloud
+  cloud:
+    # nacos
+    nacos:
+      server-addr: localhost:8848
+    # gateway
+    gateway:
+      discovery:
+        locator:
+          # 开启通过注册中心的service id进行路由
+          enabled: true
+          # 开启支持service id小写(spring.application.name中不能有下划线)
+          lower-case-service-id: true
+
+# logging
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    root: warn
+    com.lshaci: debug

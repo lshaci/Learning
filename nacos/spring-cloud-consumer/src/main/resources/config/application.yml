@@ -1,0 +1,19 @@
+# server
+server:
+  port: 9002
+# spring
+spring:
+  # application
+  application:
+    name: consumer
+  # cloud
+  cloud:
+    # nacos
+    nacos:
+      server-addr: localhost:8848
+# logging
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    root: warn
+    com.lshaci: info
