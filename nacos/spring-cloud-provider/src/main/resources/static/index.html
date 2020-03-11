@@ -11,10 +11,17 @@
 <button id="b">点我</button>
 </body>
 <script>
-    $('#b').on('click', function() {
-       $.get("/consumer/movie/list", function(r) {
-           console.log(r)
-       })
+    $('#b').on('click', function () {
+        $.ajax({
+            type: 'GET',
+            url: '/movie/list',
+            beforeSend: function (request) {
+                request.setRequestHeader("abc", "Bearer {zzz}");
+            },
+            success: function (result) {
+                console.log(result);
+            }
+        })
     });
 </script>
 </html>

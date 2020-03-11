@@ -1,4 +1,4 @@
-package com.lshaci.consumer.vo;
+package com.lshaci.provider.model.vo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

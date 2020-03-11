@@ -1,10 +1,11 @@
-package com.lshaci.consumer.controller;
+package com.lshaci.provider.web.controller;
 
-import com.lshaci.consumer.vo.MovieVO;
+import com.lshaci.provider.model.vo.MovieVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +15,9 @@ import java.util.List;
 public class MovieController {
 
     @GetMapping("/list")
-    public List<MovieVO> list() {
+    public List<MovieVO> list(HttpServletRequest request) {
+        String abc = request.getHeader("abc");
+        System.err.println("====:" + abc);
         MovieVO vo = new MovieVO()
                 .setName("黑暗迷宫")
                 .setStartTime(LocalDateTime.now())

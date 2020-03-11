@@ -6,8 +6,6 @@ spring:
   # application
   application:
     name: gateway
-  webflux:
-    static-path-pattern: classpath:/static/**
   # cloud
   cloud:
     # nacos
@@ -21,7 +19,6 @@ spring:
           enabled: true
           # 开启支持service id小写(spring.application.name中不能有下划线)
           lower-case-service-id: true
-
 # logging
 logging:
   config: classpath:config/logback-spring.xml
