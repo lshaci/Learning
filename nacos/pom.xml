@@ -9,6 +9,8 @@
     <version>1.0.0</version>
     <modules>
         <module>spring-cloud-provider</module>
+        <module>spring-cloud-consumer</module>
+        <module>spring-cloud-gateway-nacos</module>
     </modules>
     <packaging>pom</packaging>
 

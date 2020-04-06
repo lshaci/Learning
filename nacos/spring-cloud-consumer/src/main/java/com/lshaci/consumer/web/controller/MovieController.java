@@ -18,7 +18,7 @@ public class MovieController {
     private final MovieFeign movieFeign;
 
     @GetMapping("/list")
-    public List<MovieVO> list(@RequestHeader("AUTHENTICATION") String authentication) {
+    public List<MovieVO> list(@RequestHeader(value = "AUTHENTICATION", required = false) String authentication) {
         System.err.println("AUTHENTICATION: " + authentication);
         List<MovieVO> data = movieFeign.list();
         return data;

@@ -17,3 +17,6 @@ logging:
   level:
     root: warn
     com.lshaci: info
+feign:
+  hystrix:
+    enabled: true
